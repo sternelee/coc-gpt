@@ -1,17 +1,47 @@
 {
-  "name": "helix-gpt",
-  "module": "src/app.ts",
-  "type": "module",
+  "name": "coc-gpt",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Sterne Lee <sternelee@gmail.com>",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "keywords": [
+    "coc.nvim"
+  ],
+  "engines": {
+    "coc": "^0.0.82"
+  },
   "scripts": {
-    "dev": "bun --inspect=0.0.0.0:6499 run src/app.ts",
-    "build:bin": "bun build ./src/app.ts --outfile=./dist/helix-gpt --compile --minify",
-    "build:smol": "bun build ./src/app.ts --outfile=./dist/helix-gpt.js --minify --target bun; echo '#!/usr/bin/env bun' > ./dist/temp.js && cat ./dist/helix-gpt.js >> ./dist/temp.js && mv ./dist/temp.js ./dist/helix-gpt.js",
-    "test": "TEST_RUNNER=true bun test"
+    "watch": "node esbuild.mjs --watch",
+    "build": "node esbuild.mjs",
+    "prepare": "node esbuild.mjs"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "coc.nvim": "^0.0.83-next.18",
+    "esbuild": "^0.19.8",
+    "typescript": "^5.3.3"
   },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+  "activationEvents": [
+    "*"
+  ],
+  "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "coc-extension configuration",
+      "properties": {
+        "coc-extension.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable coc-extension extension"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "coc-extension.Command",
+        "title": "coc-extension command title"
+      }
+    ]
   }
 }
